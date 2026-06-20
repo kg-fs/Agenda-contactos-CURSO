@@ -1,0 +1,46 @@
+@model IEnumerable<AgendaContactos.Models.Contacto>
+
+@{
+    ViewData["Title"] = "Agenda de Contactos";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">📒 Agenda de Contactos</h1>
+    <a asp-action="Crear" class="btn btn-primary mb-3">➕ Agregar Contacto</a>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No hay contactos registrados aún.</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Celular</th>
+                    <th>Email</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Celular</td>
+                        <td>@item.Email</td>
+                        <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-sm btn-warning">✏️ Editar</a>
+                            <a asp-action="Borrar" asp-route-id="@item.Id" class="btn btn-sm btn-danger">🗑️ Borrar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
